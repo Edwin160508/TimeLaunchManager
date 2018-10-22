@@ -52,7 +52,7 @@ public class CompanyRepositoryTest {
 	}
 	
 	//@Test
-	public void findCompanyByCnpjTest() {
+	public void findCompanyByCnpjAfterInsertTest() {
 		try {
 			Company findByCnpj = this.companyRepository.findByCnpj(CNPJ);		
 			assertEquals(findByCnpj.getId(), companyId);
@@ -72,6 +72,7 @@ public class CompanyRepositoryTest {
 			Assert.assertFalse(true);
 		}
 	}
+	
 	@Test
 	public void listAllCompaniesTest() {
 		try {
@@ -85,6 +86,18 @@ public class CompanyRepositoryTest {
 			e.getMessage();
 			Assert.assertFalse(true);
 		}
+	}
+	
+	@Test
+	public void findCompanyByCnpjTest() {
+		try {
+			Company company = this.companyRepository.findByCnpj(CNPJ);
+			Assert.assertFalse("Empresa não encontrada", company == null);
+		}catch (Exception e) {
+			e.getMessage();
+			Assert.assertFalse(true);
+		}
+		
 	}
 	
 	
