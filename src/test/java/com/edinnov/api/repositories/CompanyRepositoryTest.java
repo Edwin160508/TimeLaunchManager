@@ -110,6 +110,21 @@ public class CompanyRepositoryTest {
 		}
 	}
 	
+	/*Crud UPDATE*/
+	@Test
+	public void updateCompanyTest() {
+		try {
+			Company companyToUpdate = this.companyRepository.getCompanyById(ID);
+			companyToUpdate.setCompanyName("InovaçãoInteligentes IT");
+			companyToUpdate.preUpdate();
+			this.companyRepository.save(companyToUpdate);
+			Assert.assertFalse("Empresa atualizada com sucesso.", companyToUpdate == null);
+		}catch(Exception e) {
+			e.getMessage();
+			Assert.assertFalse(true);
+		}
+	}
+	
 	@Test
 	public void deleteCompanyByCnpjTest() {
 		try {

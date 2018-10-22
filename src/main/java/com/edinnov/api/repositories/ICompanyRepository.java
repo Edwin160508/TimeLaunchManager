@@ -16,14 +16,10 @@ import javax.persistence.NamedQuery;
 
 @Transactional(readOnly = true)
 @NamedQueries({
-	@NamedQuery(name = ICompanyRepository.COMPANY_BY_ID, 
-			    query= "SELECT comp FROM company comp WHERE comp.id = :id"),
 	@NamedQuery(name = ICompanyRepository.EXIST_COMPANY_BY_CNPJ, query = "SELECT comp FROM company comp WHERE comp.cnpj =:cnpj"),
 	@NamedQuery(name = ICompanyRepository.DELETE_COMPANY_BY_CNPJ, query = "DELETE FROM company WHERE cnpj =:cnpj")
 })
 public interface ICompanyRepository extends JpaRepository<Company, Long>{
-	
-	public static final String COMPANY_BY_ID = "ICompanyRepository.findByCompanyId";
 	
 	public static final String DELETE_COMPANY_BY_CNPJ = "ICompanyRepository.deleteCompanyByCnpj";
 	
