@@ -26,7 +26,7 @@ public class CompanyRepositoryTest {
 	@Autowired
 	public ICompanyRepository companyRepository;
 	
-	//@Autowired
+	@Autowired
 	public IEmployeeRepository employeeRepository;
 	
 	/**Momento quando adiciona empresa
