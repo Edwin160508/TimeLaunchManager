@@ -3,6 +3,9 @@ package com.edinnov.api.repositories;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.NoResultException;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -28,7 +31,11 @@ public class CompanyRepositoryTest {
 	@Autowired
 	public ICompanyRepository companyRepository;
 	
-	@Test
+	/**Momento quando adiciona empresa
+	 * em seguido consulto empresa por CNPJ
+	 * realiza comparação da chave primária para confirmar
+	 * se são a mesma empresa. **/
+	//@Before
 	public void setUp() {
 		try {
 			Company company = new Company();
@@ -36,48 +43,49 @@ public class CompanyRepositoryTest {
 			company.setCnpj(CNPJ);
 			company.prePersist();
 			Company companySaved = this.companyRepository.save(company);
-			Assert.assertFalse(companySaved == null);
-			/*this.companyId = companySaved.getId();
-			
-			this.companies = this.companyRepository.findAll();
-			companies.forEach(System.out::println);
-			assertEquals("Lista de empresas são iguais", this.companyRepository.findAll(), companies);*/
+			this.companyId = companySaved.getId();
+			Assert.assertFalse(companySaved == null);			
 		}catch(Exception e) {			
 			e.getMessage();
 			Assert.assertFalse(companies == null);
 		}
 	}
 	
-	/*@After
-	public void tearnDown() {
-		this.companyRepository.deleteAll();
-	}
-	
-	@Test
+	//@Test
 	public void findCompanyByCnpjTest() {
 		try {
-			this.companiesList = (List<Company>) this.companyRepository.findByCnpj(CNPJ);
-			companiesList.forEach(item ->{				
-				assertEquals(CNPJ, item.getCnpj());
-			});
-		}catch(Exception e) {
+			Company findByCnpj = this.companyRepository.findByCnpj(CNPJ);		
+			assertEquals(findByCnpj.getId(), companyId);
+		}catch (Exception e) {
 			e.getMessage();
-			Assert.assertFalse(companiesList == null);
+			Assert.assertFalse(true);
+		}
+		
+	}	
+	
+	//@After
+	public void tearnDown() {
+		try {
+			this.companyRepository.deleteAll();
+		}catch (Exception e) {
+			e.getMessage();
+			Assert.assertFalse(true);
+		}
+	}
+	@Test
+	public void listAllCompaniesTest() {
+		try {
+			this.companiesList = this.companyRepository.findAll();
+			companiesList.forEach(item -> {
+				System.out.println("Id: "+item.getId()+" Company: "+item.getCompanyName()+" CNPJ: "+item.getCnpj()
+				+" Creation Date: "+item.getCreationDate()+" Update Date "+item.getUpdateDate());
+			});
+			Assert.assertFalse("Nenhum Registro encontrado no banco de dados.", companiesList.size()==0);
+		}catch (Exception e) {
+			e.getMessage();
+			Assert.assertFalse(true);
 		}
 	}
 	
-	@Test
-	public void findCompanyByIdTest() {
-		try {
-			List<Company> companiesList = this.companyRepository.findByCompanyId(companyId);
-			companiesList.forEach(item ->{
-				assertEquals(this.companyId, item.getId());
-			});
-			
-		}catch(Exception e) {
-			e.getMessage();
-			Assert.assertFalse(companyId == null);						
-		}
-	}*/
 	
 }
