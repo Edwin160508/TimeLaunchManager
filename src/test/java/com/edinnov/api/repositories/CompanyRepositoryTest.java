@@ -100,5 +100,17 @@ public class CompanyRepositoryTest {
 		
 	}
 	
+	@Test
+	public void deleteCompanyByCnpjTest() {
+		try {
+			this.companyRepository.deleteCompanyByCnpj(CNPJ);
+			Company company = this.companyRepository.findByCnpj(CNPJ);
+			Assert.assertFalse("Empresa não encontrada", company != null);
+		}catch(Exception e) {
+			e.getMessage();
+			Assert.assertFalse(true);
+		}
+	}
+	
 	
 }
