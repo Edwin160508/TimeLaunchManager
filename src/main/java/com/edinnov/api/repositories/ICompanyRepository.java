@@ -26,7 +26,7 @@ public interface ICompanyRepository extends JpaRepository<Company, Long>{
 	
 	public static final String DELETE_COMPANY_BY_CNPJ = "ICompanyRepository.deleteCompanyByCnpj";
 	
-	Optional<Company> findById(Long id);
+	Company getCompanyById(Long id);
 	Company findByCnpj(String cnpj);
 	void deleteCompanyByCnpj(@Param("cnpj") String cnpj);
 	/*List<Company> findByCompanyId(@Param("id") Long id);

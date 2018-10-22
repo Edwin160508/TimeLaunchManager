@@ -112,5 +112,15 @@ public class CompanyRepositoryTest {
 		}
 	}
 	
+	@Test
+	public void getCompanyByIdTest() {
+		try {
+			Company companyById = this.companyRepository.getCompanyById(4l);
+			Assert.assertFalse("Empresa não encontrada", companyById == null);
+		}catch(Exception e) {
+			e.getMessage();
+			Assert.assertFalse(true);
+		}
+	}
 	
 }
