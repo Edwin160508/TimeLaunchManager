@@ -3,18 +3,12 @@ package com.edinnov.api.repositories;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
-import java.util.Optional;
 
-import javax.persistence.NoResultException;
-
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.edinnov.api.entities.Company;
@@ -24,12 +18,16 @@ import com.edinnov.api.entities.Company;
 //@ActiveProfiles("test")
 public class CompanyRepositoryTest {
 	private static final String CNPJ = "74645215000104";
+	private static final Long ID = 4L;
 	private Long companyId;
 	private List<Company> companies;
 	private List<Company> companiesList;
 	
 	@Autowired
 	public ICompanyRepository companyRepository;
+	
+	@Autowired
+	public IEmployeeRepository employeeRepository;
 	
 	/**Momento quando adiciona empresa
 	 * em seguido consulto empresa por CNPJ
@@ -66,6 +64,7 @@ public class CompanyRepositoryTest {
 	//@After
 	public void tearnDown() {
 		try {
+			//this.employeeRepository.deleteAll();
 			this.companyRepository.deleteAll();
 		}catch (Exception e) {
 			e.getMessage();
@@ -101,11 +100,10 @@ public class CompanyRepositoryTest {
 	}
 	
 	@Test
-	public void deleteCompanyByCnpjTest() {
+	public void getCompanyByIdTest() {
 		try {
-			this.companyRepository.deleteCompanyByCnpj(CNPJ);
-			Company company = this.companyRepository.findByCnpj(CNPJ);
-			Assert.assertFalse("Empresa não encontrada", company != null);
+			Company companyById = this.companyRepository.getCompanyById(4l);
+			Assert.assertFalse("Empresa não encontrada", companyById == null);
 		}catch(Exception e) {
 			e.getMessage();
 			Assert.assertFalse(true);
@@ -113,10 +111,30 @@ public class CompanyRepositoryTest {
 	}
 	
 	@Test
-	public void getCompanyByIdTest() {
+	public void deleteCompanyByCnpjTest() {
 		try {
-			Company companyById = this.companyRepository.getCompanyById(4l);
-			Assert.assertFalse("Empresa não encontrada", companyById == null);
+			boolean existsCompany = companyRepository.existsByCnpj(CNPJ);
+			if(existsCompany) {
+				this.companyRepository.deleteCompanyByCnpj(CNPJ);
+				existsCompany = false;
+			}
+			
+			Assert.assertFalse("Empresa não encontrada", existsCompany);
+		}catch(Exception e) {
+			e.getMessage();
+			Assert.assertFalse(true);
+		}
+	}
+	
+	@Test
+	public void deleteCompanyByIdTest() {
+		try {
+			boolean existsCompany = companyRepository.existsById(ID);
+			if(existsCompany) {
+				companyRepository.deleteById(ID);
+				existsCompany = false;//não precisar consultar novamente se existe questao de performace.
+			}			
+			Assert.assertFalse("Empresa não encontrada", existsCompany);
 		}catch(Exception e) {
 			e.getMessage();
 			Assert.assertFalse(true);
