@@ -17,7 +17,7 @@ import com.edinnov.api.entities.Company;
 @SpringBootTest
 //@ActiveProfiles("test")
 public class CompanyRepositoryTest {
-	private static final String CNPJ = "74645215000104";
+	public static final String CNPJ = "74645215000104";
 	private static final Long ID = 1L;
 	private Long companyId;
 	private List<Company> companies;
