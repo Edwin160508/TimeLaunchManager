@@ -18,7 +18,7 @@ import com.edinnov.api.entities.Company;
 //@ActiveProfiles("test")
 public class CompanyRepositoryTest {
 	private static final String CNPJ = "74645215000104";
-	private static final Long ID = 4L;
+	private static final Long ID = 1L;
 	private Long companyId;
 	private List<Company> companies;
 	private List<Company> companiesList;
@@ -102,7 +102,7 @@ public class CompanyRepositoryTest {
 	@Test
 	public void getCompanyByIdTest() {
 		try {
-			Company companyById = this.companyRepository.getCompanyById(4l);
+			Company companyById = this.companyRepository.getCompanyById(ID);
 			Assert.assertFalse("Empresa não encontrada", companyById == null);
 		}catch(Exception e) {
 			e.getMessage();
@@ -131,9 +131,8 @@ public class CompanyRepositoryTest {
 			boolean existsCompany = companyRepository.existsByCnpj(CNPJ);
 			if(existsCompany) {
 				this.companyRepository.deleteCompanyByCnpj(CNPJ);
-				existsCompany = false;
+				existsCompany = false;//Garanto que nao existem mais após deleção.
 			}
-			
 			Assert.assertFalse("Empresa não encontrada", existsCompany);
 		}catch(Exception e) {
 			e.getMessage();
@@ -147,7 +146,7 @@ public class CompanyRepositoryTest {
 			boolean existsCompany = companyRepository.existsById(ID);
 			if(existsCompany) {
 				companyRepository.deleteById(ID);
-				existsCompany = false;//não precisar consultar novamente se existe questao de performace.
+				existsCompany = false;//Garanto que nao existem mais após deleção.
 			}			
 			Assert.assertFalse("Empresa não encontrada", existsCompany);
 		}catch(Exception e) {
