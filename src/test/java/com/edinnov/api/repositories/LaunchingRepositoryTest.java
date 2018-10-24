@@ -41,10 +41,10 @@ public class LaunchingRepositoryTest {
 		try {
 			/*Company*/
 			/*Recuperando uma empresa já existente em banco de dados.*/
-			//Company company = companyRepository.findByCnpj(CompanyRepositoryTest.CNPJ);				
+			Company company = companyRepository.findByCnpj(CompanyRepositoryTest.CNPJ);				
 			/*Employee*/
 			/*Criando novo empregado acossiando a empresa*/
-			/*Employee employee = new Employee();
+			Employee employee = new Employee();
 			employee.setName("José da Silva");
 			employee.setEmailAddress("jose.silva@inovacaointeligentes.com.br");
 			employee.setPassword(PasswordUtils.generatePasswordBCrypt("654321"));
@@ -55,7 +55,7 @@ public class LaunchingRepositoryTest {
 			employee.setProfile(ProfileEnum.ROLE_ADMIN);
 			employee.prePersist();						
 			employee.setCompany(company);
-			Employee emplyeeSaved = this.employeeRepository.save(employee);*/
+			Employee emplyeeSaved = this.employeeRepository.save(employee);
 			Employee emplyeeSaved = employeeRepository.findByCpf(CPF);
 		
 			Launching launching = new Launching();
