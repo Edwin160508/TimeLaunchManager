@@ -56,7 +56,7 @@ public class LaunchingRepositoryTest {
 			employee.prePersist();						
 			employee.setCompany(company);
 			Employee emplyeeSaved = this.employeeRepository.save(employee);
-			Employee emplyeeSaved = employeeRepository.findByCpf(CPF);
+
 		
 			Launching launching = new Launching();
 			launching.setDate(new Date());
